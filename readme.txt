@@ -14,7 +14,7 @@ Create and maintain your SW: Edge of the empire characters. Mobile Friendly.
 
 Welcome to Star Wars Edge of the Empire Character Sheets
 
-Version 1.0
+Version 1.1
  In this version you will have the following:
 
 1. Registered users can create one character.
