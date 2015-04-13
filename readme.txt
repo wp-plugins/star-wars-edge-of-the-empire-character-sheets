@@ -54,3 +54,5 @@ Simply Activate the plugin, and then add the shortcodes found in the new admin m
 
 = 1.0 =
 * Plugin debut
+= 1.1 =
+Corrected multi insert of career and skills tables
