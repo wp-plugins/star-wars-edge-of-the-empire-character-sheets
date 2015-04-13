@@ -4,7 +4,7 @@
  * Plugin URI:
  * Description: Create and maintain your SW: Edge of the empire characters. Mobile Friendly.
  * Author: David Ellenburg
- * Version: 1.0
+ * Version: 1.1
  * Author URI: http://www.ellenburgweb.com
  * License: GPL2
  **/
@@ -96,7 +96,7 @@ add_shortcode( 'sweecs', 'sweecs_page');
 
 //data base insert info
 global $sweecs_db_version;
-$sweecs_db_version = '1.0';
+$sweecs_db_version = '1.1';
 function sweecs_install() {
 	global $wpdb;
 	global $sweecs_db_version;
@@ -164,24 +164,33 @@ function sweecs_install() {
 	dbDelta( $sql );
 	//Version 1.1.1 added Careers
 	$sql = "CREATE TABLE $careers_table_name (
-		id mediumint(9) NOT NULL AUTO_INCREMENT,
+		id mediumint(9) NOT NULL,
 		career text NOT NULL,
 		UNIQUE KEY id (id)
 	) $charset_collate;";
 	dbDelta( $sql );
 	//insert data
-	$careers= array('Bounty_Hunter', 'Colonist', 'Explorer', 'Hired_Gun', 'Smuggler', 'Technician');
+	//$careers= array('Bounty_Hunter', 'Colonist', 'Explorer', 'Hired_Gun', 'Smuggler', 'Technician');
+	$careers= array(
+		array('Bounty_Hunter',1),
+		array('Colonist',2),
+		array('Explorer',3),
+		array('Hired_Gun',4),
+		array('Smuggler',5),
+		array('Technician',6)
+	);
 	foreach($careers as $career){
 		$wpdb->insert(
 			$careers_table_name,
 			array(
-				'career' => $career
+				'career' => $career[0],
+				'id'     => $career[1]
 			)
 		);
 	}
 	//Version 1.1.2 added skills
 	$sql = "CREATE TABLE $skills_table_name (
-		id mediumint(9) NOT NULL AUTO_INCREMENT,
+		id mediumint(9) NOT NULL,
 		skill text NOT NULL,
 		ability text NOT NULL,
 		UNIQUE KEY id (id)
@@ -189,48 +198,49 @@ function sweecs_install() {
 	dbDelta( $sql );
 	//insert data
 	$skills= array(
-		array('Astrogation','intellect'),
-		array('Athletics','brawn'),
-		array('Brawl','brawn'),
-		array('Charm','presence'),
-		array('Coercion','willpower'),
-		array('Computers','intellect'),
-		array('Cool','presence'),
-		array('Coordination','agility'),
-		array('Deception','cunning'),
-		array('Discipline','willpower'),
-		array('Gunnery','agility'),
-		array('Knowledge','intellect'),
-		array('Knowledge_Core_Worlds','intellect'),
-		array('Knowledge_Education','intellect'),
-		array('Knowledge_Lore','intellect'),
-		array('Knowledge_Outer_Rim','intellect'),
-		array('Knowledge_Underworld','intellect'),
-		array('Knowledge_Xenology','intellect'),
-		array('Knowledge_Warfare','intellect'),
-		array('Leadership','presence'),
-		array('Mechanics','intellect'),
-		array('Medicine','intellect'),
-		array('Melee','brawn'),
-		array('Negotiation','presence'),
-		array('Perception','cunning'),
-		array('Piloting_Planetary','agility'),
-		array('Piloting_Space','agility'),
-		array('Ranged_Heavy','agility'),
-		array('Ranged_Light','agility'),
-		array('Resilience','brawn'),
-		array('Skulduggery','cunning'),
-		array('Stealth','agility'),
-		array('Streetwise','cunning'),
-		array('Survival','cunning'),
-		array('Vigilance','willpower')
+		array('Astrogation','intellect',1),
+		array('Athletics','brawn',2),
+		array('Brawl','brawn',3),
+		array('Charm','presence',4),
+		array('Coercion','willpower',5),
+		array('Computers','intellect',6),
+		array('Cool','presence',7),
+		array('Coordination','agility',8),
+		array('Deception','cunning',9),
+		array('Discipline','willpower',10),
+		array('Gunnery','agility',11),
+		array('Knowledge','intellect',12),
+		array('Knowledge_Core_Worlds','intellect',13),
+		array('Knowledge_Education','intellect',14),
+		array('Knowledge_Lore','intellect',15),
+		array('Knowledge_Outer_Rim','intellect',16),
+		array('Knowledge_Underworld','intellect',17),
+		array('Knowledge_Xenology','intellect',18),
+		array('Knowledge_Warfare','intellect',19),
+		array('Leadership','presence',20),
+		array('Mechanics','intellect',21),
+		array('Medicine','intellect',22),
+		array('Melee','brawn',23),
+		array('Negotiation','presence',24),
+		array('Perception','cunning',25),
+		array('Piloting_Planetary','agility',26),
+		array('Piloting_Space','agility',27),
+		array('Ranged_Heavy','agility',28),
+		array('Ranged_Light','agility',29),
+		array('Resilience','brawn',30),
+		array('Skulduggery','cunning',31),
+		array('Stealth','agility',32),
+		array('Streetwise','cunning',33),
+		array('Survival','cunning',34),
+		array('Vigilance','willpower',35)
 		);
 	foreach($skills as $skill){
 		$wpdb->insert(
 			$skills_table_name,
 			array(
-				'skill' => $skill[0],
-				'ability' => $skill[1]
+				'skill'     => $skill[0],
+				'ability'   => $skill[1],
+				'id'        =>  $skill[2]
 			)
 		);
 	}
