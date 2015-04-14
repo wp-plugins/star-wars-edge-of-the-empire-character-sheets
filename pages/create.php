@@ -195,8 +195,8 @@ if(isset($_REQUEST['create'])){//Create the submitted Character Sheet
 }
 elseif(!isset($_REQUEST['create']) && !isset($character['character_name'])){//Display Form
 	?>
-	<script src="<?php echo $base_url; ?>/wp-content/plugins/sweecs/js/prototype.forms.js" type="text/javascript"></script>
-	<script src="<?php echo $base_url; ?>/wp-content/plugins/sweecs/js/jotform.forms.js?3.2.6370" type="text/javascript"></script>
+	<script src="<?php echo $incPath; ?>/js/prototype.forms.js" type="text/javascript"></script>
+	<script src="<?php echo $incPath; ?>/js/jotform.forms.js?3.2.6370" type="text/javascript"></script>
 	<script type="text/javascript">
 		JotForm.init();
 		function spec(career){
@@ -215,9 +215,9 @@ elseif(!isset($_REQUEST['create']) && !isset($character['character_name'])){//Di
 		}
 
 	</script>
-	<link href="<?php echo $base_url; ?>/wp-content/plugins/sweecs/css/css.css?3.2.6370" rel="stylesheet" type="text/css" />
-	<link type="text/css" rel="stylesheet" href="<?php echo $base_url; ?>/wp-content/plugins/sweecs/css/nova.css?3.2.6370" />
-	<link type="text/css" media="print" rel="stylesheet" href="<?php echo $base_url; ?>/wp-content/plugins/sweecs/css/printForm.css?3.2.6370" />
+	<link href="<?php echo $incPath; ?>/css/css.css?3.2.6370" rel="stylesheet" type="text/css" />
+	<link type="text/css" rel="stylesheet" href="<?php echo $incPath; ?>/css/nova.css?3.2.6370" />
+	<link type="text/css" media="print" rel="stylesheet" href="<?php echo $incPath; ?>/css/printForm.css?3.2.6370" />
 	<style type="text/css">
 		.form-label-left{
 			width:150px !important;

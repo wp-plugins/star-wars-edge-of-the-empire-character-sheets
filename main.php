@@ -4,7 +4,7 @@
  * Plugin URI:
  * Description: Create and maintain your SW: Edge of the empire characters. Mobile Friendly.
  * Author: David Ellenburg
- * Version: 1.1
+ * Version: 1.1.1
  * Author URI: http://www.ellenburgweb.com
  * License: GPL2
  **/
@@ -75,6 +75,8 @@ function sweecs_page($parms){
 		//Set plugin paths
 		$dir= plugin_dir_path( __FILE__ );
 		$base_url= get_site_url();
+		$plugName= 'star-wars-edge-of-the-empire-character-sheets';
+		$incPath= "$base_url/wp-content/plugins/$plugName";
 		//set tables for pulling data
 		global $wpdb;
 		$character_table_name = $wpdb->prefix . 'sweecs_characters';
