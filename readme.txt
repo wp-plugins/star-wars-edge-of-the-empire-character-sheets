@@ -1,5 +1,5 @@
 === Star Wars Edge of the Empire Character Sheets ===
-Contributors: EllenburgWeb
+Contributors: Davell87
 Donate link:
 Tags: Star Wars, RPG, Edge of the Empire
 Requires at least: 3.0.1
@@ -14,7 +14,7 @@ Create and maintain your SW: Edge of the empire characters. Mobile Friendly.
 
 Welcome to Star Wars Edge of the Empire Character Sheets
 
-Version 1.0
+Version 1.1
  In this version you will have the following:
 
 1. Registered users can create one character.
@@ -54,3 +54,7 @@ Simply Activate the plugin, and then add the shortcodes found in the new admin m
 
 = 1.0 =
 * Plugin debut
+= 1.1 =
+Corrected multi insert of career and skills tables
+= 1.1.1 =
+Corrected css path issue
