@@ -198,53 +198,6 @@ else{
 	$$character['career']=          'selected';
 	$$character['specialization']=  'selected';
 	?>
-	<script src="<?php echo $incPath; ?>/js/prototype.forms.js" type="text/javascript"></script>
-	<script src="<?php echo $incPath; ?>/js/jotform.forms.js?3.2.6370" type="text/javascript"></script>
-	<script type="text/javascript">
-		JotForm.init();
-		function spec(career){
-			var careers= ['Bounty_Hunter', 'Colonist', 'Explorer', 'Hired_Gun', 'Smuggler', 'Technician'];
-			for(var i = 0; i < careers.length; i++){
-				var item= careers[i];
-				document.getElementById(item).style.display='none';
-				var specID= item + '_Spec';
-				var field= document.getElementById(specID);
-				field.setAttribute("name","nope");
-			}
-			document.getElementById(career).style.display='block';
-			var career2= career + '_Spec';
-			var field= document.getElementById(career2);
-			field.setAttribute("name","specialization");
-		}
-		function setDrops(){
-			var specID= document.getElementById('career').value;
-			document.getElementById(specID).style.display='block';
-		}
-	</script>
-	<link href="<?php echo $incPath; ?>/css/css.css?3.2.6370" rel="stylesheet" type="text/css"/>
-	<link type="text/css" rel="stylesheet" href="<?php echo $incPath; ?>/css/nova.css?3.2.6370"/>
-	<link type="text/css" media="print" rel="stylesheet" href="<?php echo $incPath; ?>/css/printForm.css?3.2.6370"/>
-	<style type="text/css">
-		.form-label-left {
-			width: 150px !important;
-		}
-
-		.form-line {
-			padding-top: 12px;
-			padding-bottom: 12px;
-		}
-
-		.form-label-right {
-			width: 150px !important;
-		}
-
-		.form-all {
-			width: 650px;
-			color: #555 !important;
-			font-family: "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Verdana, sans-serif;
-			font-size: 14px;
-		}
-	</style>
 	<div>
 		<p>Player Name: <? echo $character['player']; ?></p>
 	</div>

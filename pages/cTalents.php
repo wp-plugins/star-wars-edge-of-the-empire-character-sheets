@@ -36,32 +36,6 @@ if(isset($_REQUEST['addTal'])){
 	}
 }
 ?>
-<script src="<?php echo $incPath; ?>/js/prototype.forms.js" type="text/javascript"></script>
-<script src="<?php echo $incPath; ?>/js/jotform.forms.js?3.2.6370" type="text/javascript"></script>
-<script type="text/javascript">
-	JotForm.init();
-</script>
-<link href="<?php echo $incPath; ?>/css/css.css?3.2.6370" rel="stylesheet" type="text/css" />
-<link type="text/css" rel="stylesheet" href="<?php echo $incPath; ?>/css/nova.css?3.2.6370" />
-<link type="text/css" media="print" rel="stylesheet" href="<?php echo $incPath; ?>/css/printForm.css?3.2.6370" />
-<style type="text/css">
-	.form-label-left{
-		width:150px !important;
-	}
-	.form-line{
-		padding-top:12px;
-		padding-bottom:12px;
-	}
-	.form-label-right{
-		width:150px !important;
-	}
-	.form-all{
-		width:650px;
-		color:#555 !important;
-		font-family:"Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Verdana, sans-serif;
-		font-size:14px;
-	}
-</style>
 
 <form class="jotform-form" action="" method="post" name="form_50895250335153" id="50895250335153" accept-charset="utf-8">
 	<input type="hidden" name="addTal" value="" />
