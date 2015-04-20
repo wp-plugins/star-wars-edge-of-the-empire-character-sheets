@@ -14,13 +14,14 @@ Create and maintain your SW: Edge of the empire characters. Mobile Friendly.
 
 Welcome to Star Wars Edge of the Empire Character Sheets
 
-Version 1.1
+Version 1.5
  In this version you will have the following:
 
 1. Registered users can create one character.
 1. Registered users can view their character.
 1. Registered users can edit their character.
 1. Registered users can see what dice they are allowed to roll for each skill.
+1. Registered users can add and edit their basic inventory and credits now..
 
 This plugin requires the user to be logged in to see the any of the pages it provides. No need for you to create hidden pages.
 
@@ -31,12 +32,14 @@ Below are the pages that you will want to create and then add the shortcode. Onl
 2. Page: Edit Character, Shortcode: [sweecs page='edit']
 3. Page: View Character, Shortcode: [sweecs page='view']
 4. Page: Your Dice, Shortcode: [sweecs page='dice']
+5. Page: Inventory, Shortcode: [sweecs page='inv']
 
 Future Plans
 
 * Multiple Characters per user
 * Talents
 * Player Groups so a GM can access his players Characters
+* Inventory page will expand to have more details for armor and weapons
 * Add expansions
 * More as I find things to add
 
@@ -58,3 +61,5 @@ Simply Activate the plugin, and then add the shortcodes found in the new admin m
 Corrected multi insert of career and skills tables
 = 1.1.1 =
 Corrected css path issue
+= 1.5 =
+Added basic inventory control

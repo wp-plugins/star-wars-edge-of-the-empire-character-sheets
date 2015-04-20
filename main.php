@@ -102,9 +102,10 @@ $sweecs_db_version = '1.1';
 function sweecs_install() {
 	global $wpdb;
 	global $sweecs_db_version;
-	$character_table_name = $wpdb->prefix . 'sweecs_characters';
-	$careers_table_name = $wpdb->prefix . 'sweecs_careers';
-	$skills_table_name = $wpdb->prefix . 'sweecs_skills';
+	$character_table_name=              $wpdb->prefix . 'sweecs_characters';
+	$character_inventory_table_name=    $wpdb->prefix . 'sweecs_characters_inventory';
+	$careers_table_name=                $wpdb->prefix . 'sweecs_careers';
+	$skills_table_name=                 $wpdb->prefix . 'sweecs_skills';
 
 	$charset_collate = $wpdb->get_charset_collate();
 	$sql = "CREATE TABLE $character_table_name (
@@ -163,6 +164,15 @@ function sweecs_install() {
 		UNIQUE KEY id (id)
 	) $charset_collate;";
 	require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
+	dbDelta( $sql );
+	//Character inventory and Credits
+	$sql = "CREATE TABLE $character_inventory_table_name (
+		id mediumint(9) NOT NULL AUTO_INCREMENT,
+		char_id text NOT NULL,
+		Credits int,
+		Inventory text,
+		UNIQUE KEY id (id)
+	)$charset_collate;";
 	dbDelta( $sql );
 	//Version 1.1.1 added Careers
 	$sql = "CREATE TABLE $careers_table_name (
