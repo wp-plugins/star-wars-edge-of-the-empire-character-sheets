@@ -4,7 +4,7 @@
  * User: dellenburg
  * Date: 3/31/2015
  * Time: 13:47
- * Name: Create Character
+ * Name: Edit Character
  * Desc: This script will allow the player to modify their character.
  */
 
@@ -63,20 +63,20 @@ if(isset($_REQUEST['edit'])){//Edit the submitted Character Sheet
 	$update_char= $wpdb->update(
 		$character_table_name,
 		array(
-			'character_name'            => $character_name,
-			'race'                      => $race,
-			'career'                    => $career,
-			'soak'                      => $soak_value,
-			'strain'                    => $strain,
-			'brawn'                     => $brawn,
-			'intellect'                 => $intellect,
-			'willpower'                 => $willpower,
-			'specialization'            => $specialization,
-			'wounds'                    => $wounds,
-			'defence'                   => $defence,
-			'agility'                   => $agility,
-			'cunning'                   => $cunning,
-			'presence'                  => $presence,
+			'character_name'            =>  $character_name,
+			'race'                      =>  $race,
+			'career'                    =>  $career,
+			'soak'                      =>  $soak_value,
+			'strain'                    =>  $strain,
+			'brawn'                     =>  $brawn,
+			'intellect'                 =>  $intellect,
+			'willpower'                 =>  $willpower,
+			'specialization'            =>  $specialization,
+			'wounds'                    =>  $wounds,
+			'defence'                   =>  $defence,
+			'agility'                   =>  $agility,
+			'cunning'                   =>  $cunning,
+			'presence'                  =>  $presence,
 			'Astrogation'               =>	$Astrogation,
 			'Athletics'                 =>  $Athletics,
 			'Brawl'                     =>  $Brawl,

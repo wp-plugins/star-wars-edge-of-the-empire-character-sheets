@@ -4,11 +4,10 @@
  * User: dellenburg
  * Date: 3/31/2015
  * Time: 13:47
- * Name: Create Character
+ * Name: Dice
  * Desc: This script will allow the player to see what dice to roll for their skills.
  */
-//$character= $wpdb->get_row("SELECT * FROM $character_table_name where userID = $user_id", ARRAY_A);
-//$value= $wpdb->get_row("SELECT * FROM $skills_table_name where skill = $skill", ARRAY_A);
+
 $skills= $wpdb->get_col("SELECT skill FROM $skills_table_name WHERE 1");
 $character_atts= $wpdb->get_row("SELECT * FROM $character_table_name where userID = $user_id", ARRAY_A);
 

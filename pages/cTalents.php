@@ -4,7 +4,7 @@
  * User: dellenburg
  * Date: 3/31/2015
  * Time: 13:47
- * Name: Create Character
+ * Name: Talent Chooser
  * Desc: This script will allow the players to add talents to their character.
  */
 

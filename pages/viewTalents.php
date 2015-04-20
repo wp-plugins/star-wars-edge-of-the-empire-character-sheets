@@ -4,7 +4,7 @@
  * User: dellenburg
  * Date: 3/31/2015
  * Time: 13:47
- * Name: Create Character
+ * Name: View Talents
  * Desc: This script will allow the players to view talents on their character.
  */
 

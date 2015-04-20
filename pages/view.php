@@ -4,7 +4,7 @@
  * User: dellenburg
  * Date: 3/31/2015
  * Time: 13:47
- * Name: Create Character
+ * Name: View Character
  * Desc: This script will display a completed character.
  */
 

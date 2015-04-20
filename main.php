@@ -81,6 +81,7 @@ function sweecs_page($parms){
 		global $wpdb;
 		$character_table_name=          $wpdb->prefix . 'sweecs_characters';
 		$character_talents_table_name=  $wpdb->prefix . 'sweecs_characters_talents';
+		$character_inventory_table_name= $wpdb->prefix . 'sweecs_characters_inventory';
 		$careers_table_name=            $wpdb->prefix . 'sweecs_careers';
 		$skills_table_name=             $wpdb->prefix . 'sweecs_skills';
 		$talents_table_name=            $wpdb->prefix . 'sweecs_talents';
@@ -157,20 +158,21 @@ add_shortcode( 'sweecs', 'sweecs_page');
 
 //data base insert info
 global $sweecs_db_version;
-$sweecs_db_version = '1.5';
+$sweecs_db_version = '1.7';
 
 function sweecs_install() {
 	global $wpdb;
 	global $sweecs_db_version;
 	$character_table_name=          $wpdb->prefix . 'sweecs_characters';
 	$character_talents_table_name=  $wpdb->prefix . 'sweecs_characters_talents';
+	$character_inventory_table_name= $wpdb->prefix . 'sweecs_characters_inventory';
 	$careers_table_name=            $wpdb->prefix . 'sweecs_careers';
 	$skills_table_name=             $wpdb->prefix . 'sweecs_skills';
 	$talents_table_name=            $wpdb->prefix . 'sweecs_talents';
 
 	$charset_collate = $wpdb->get_charset_collate();
 	$sql = "CREATE TABLE $character_table_name (
-		id mediumint(9) NOT NULL AUTO_INCREMENT,
+		id mediumint(9) NOT NULL AUTO_INCREMENT,/*char_id */
 		userID text NOT NULL,
 		player text NOT NULL,
 		character_name text NOT NULL,
@@ -226,13 +228,22 @@ function sweecs_install() {
 	) $charset_collate;";
 	require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
 	dbDelta( $sql );
-	//
+	//Create characters talents table
 	$sql = "CREATE TABLE $character_talents_table_name (
 		id mediumint(9) NOT NULL AUTO_INCREMENT,
 		talent_id text NOT NULL,
 		char_id text NOT NULL,
 		UNIQUE KEY id (id)
 	) $charset_collate;";
+	dbDelta( $sql );
+	//Character inventory and Credits
+	$sql = "CREATE TABLE $character_inventory_table_name (
+		id mediumint(9) NOT NULL AUTO_INCREMENT,
+		char_id text NOT NULL,
+		Credits int,
+		Inventory text,
+		UNIQUE KEY id (id)
+	)$charset_collate;";
 	dbDelta( $sql );
 	//Version 1.1.1 added Careers
 	$sql = "CREATE TABLE $careers_table_name (
@@ -242,7 +253,6 @@ function sweecs_install() {
 	) $charset_collate;";
 	dbDelta( $sql );
 	//insert data
-	//$careers= array('Bounty_Hunter', 'Colonist', 'Explorer', 'Hired_Gun', 'Smuggler', 'Technician');
 	$careers= array(
 		array('Bounty_Hunter',1),
 		array('Colonist',2),
@@ -350,7 +360,47 @@ function sweecs_install() {
 		array('Bounty_Hunter','Assassin','Precise_Aim',"Once per round, may perform Precise AIM maneuver. Suffer a number of strain no greater than ranks in Precise Aim, then reduce target's melee and ranged defence by that number.",'Active',25,17,'13'),
 		array('Bounty_Hunter','Assassin','Deadly_Accuracy','When acquired, choose 1 combat skill. Add damage equal to ranks in that skill to one hit of a successful attack made using that skill.','Passive',25,18,'14'),
 		array('Bounty_Hunter','Assassin','Dedication','Gain +1 to a single characteristic. This cannot bring a characteristic above 6.','Passive',25,19,'15'),
-		array('Bounty_Hunter','Assassin','Master_of_Shadows','Once per round, suffer 2 strain to decrease difficulty of next Stealth or Skulduggery check by one.','Active',25,20,'16')
+		array('Bounty_Hunter','Assassin','Master_of_Shadows','Once per round, suffer 2 strain to decrease difficulty of next Stealth or Skulduggery check by one.','Active',25,20,'16'),
+		array('Bounty_Hunter','Gadgeteer','Brace','Perform the Brace maneuver to remove 1 black dice per rank of Brace from next Action. This may only remove black dice added by environmental circumstances','Active',5,21,''),
+		array('Bounty_Hunter','Gadgeteer','Toughened','Gain +2 wound threshold','Passive',5,22,''),
+		array('Bounty_Hunter','Gadgeteer','Intimidating','May suffer a number of strain to downgrade difficulty of Coercion checks, or upgrade difficulty when targeted by Coercion checks, by an equal number. Strain suffered this way cannot exceed ranks in Intimidating.','Active',5,23,''),
+		array('Bounty_Hunter','Gadgeteer','Defensive_Stance','Once per round, may perform a Defensive Stance maneuver and suffer a number of strain to upgrade difficulty of all incoming melee attacks by an equal number. Strain suffered this war cannot exceed ranks in Defensive Stance','Active',5,24,''),
+		array('Bounty_Hunter','Gadgeteer','Spare_Clip','Cannot run out of ammo due to Major Disadvantage. Items with Limited Ammo quality run out of ammo as normal.','Passive',10,25,'26'),
+		array('Bounty_Hunter','Gadgeteer','Jury_Rigged','Choose 1 weapon, armor or other item and give it a permanent improvement while it remains in use.','Passive',10,26,'22'),
+		array('Bounty_Hunter','Gadgeteer','Point_Blank','Add 1 damage per rank of Point Blank to damage of one hit of a successful attack while using Ranged (Heavy) or Ranged (Light) skills at close range or engaged.','Passive',10,27,'26'),
+		array('Bounty_Hunter','Gadgeteer','Disorient','After hitting with a combat check, may spend two force destiny to disorient target for number of rounds equal to ranks in Disorient.','Passive',10,28,'25'),
+		array('Bounty_Hunter','Gadgeteer','Toughened','Gain +2 wound threshold','Passive',15,29,'30'),
+		array('Bounty_Hunter','Gadgeteer','Armor_Master','When wearing armor, increase total soak value by 1.','Passive',15,30,'26'),
+		array('Bounty_Hunter','Gadgeteer','Natural_Enforcer','Once per session, may reroll any 1 Coercion or Streetwise check.','Active',15,31,'30'),
+		array('Bounty_Hunter','Gadgeteer','Stunning_Blow','When making Melee checks, may inflict damage as strain instead of wounds. This does not ignore soak.','Active',15,32,'28'),
+		array('Bounty_Hunter','Gadgeteer','Jury_Rigged','Choose 1 weapon, armor or other item and give it a permanent improvement while it remains in use.','Passive',20,33,'34'),
+		array('Bounty_Hunter','Gadgeteer','Tinkerer','May add 1 additional hard point to a number of items equal to ranks in Tinkerer. Each item may only be modified once.','Passive',20,34,'30'),
+		array('Bounty_Hunter','Gadgeteer','Deadly_Accuracy','When acquired, choose 1 combat skill. Add damage equal to ranks in that skill to one hit of successful attack made using that skill.','Passive',20,35,'34'),
+		array('Bounty_Hunter','Gadgeteer','Improved_Stunning_Blow','When dealing strain damage with Melee or Brawl checks, may spend Triumph to stagger target for 1 round per Triumph .','Active',20,36,'32'),
+		array('Bounty_Hunter','Gadgeteer','Intimidating','May suffer a number of strain to downgrade difficulty of Coercion checks, or upgrade difficulty when targeted by Coercion checks, by an equal number. Strain suffered this way cannot exceed ranks in Intimidating.','Active',25,37,'38'),
+		array('Bounty_Hunter','Gadgeteer','Dedication','Gain +1 to a single characteristic. This cannot bring a characteristic above 6.','Passive',25,38,'34'),
+		array('Bounty_Hunter','Gadgeteer','Improved_Amor_Master','When wearing armor with a soak value of 2 or higher, increase defense by 1.','Passive',25,39,'38'),
+		array('Bounty_Hunter','Gadgeteer','Crippling_Blow','Increase the difficulty of next combat check by 1. If check deals damage, target suffers 1 strain whenever he moves for the remainder of the encounter.','Active',25,40,'36'),
+		array('Bounty_Hunter','Survivalist','Forager','Remove up to two black dice from skill checks to find food, water or shelter. Survival checks to forage take half the time.','Passive',5,41,''),
+		array('Bounty_Hunter','Survivalist','Stalker','Add 1 blue dice per rank of Stalker to all Stealth and Coordination checks.','Passive',5,42,''),
+		array('Bounty_Hunter','Survivalist','Outdoorsman','Remove 1 black dice per rank of Outdoorsman from checks to move through terrain or manage environmental effects. Decrease overland travel times by half.','Passive',5,43,''),
+		array('Bounty_Hunter','Survivalist','Expert_Tracker','Remove 1 black dice per rank of Expert Tracker from checks to find tracks or track targets. Decrease time to track a target by half.','Passive',5,44,''),
+		array('Bounty_Hunter','Survivalist','Outdoorsman','Remove 1 black dice per rank of Outdoorsman from checks to move through terrain or manage environmental effects. Decrease overland travel times by half.','Passive',10,45,'41,46'),
+		array('Bounty_Hunter','Survivalist','Swift','Do not suffer usual penalties for moving through difficult terrain.','Passive',10,46,'45,42,47'),
+		array('Bounty_Hunter','Survivalist','Hunter','Add 1 blue dice per rank of Hunter to all checks when interacting with beast or animals (including combat checks). Add + 10 to Critical Injury results against beasts or animals per rank of Hunter.','Passive',10,47,'46,43'),
+		array('Bounty_Hunter','Survivalist','Soft_Spot','After making a successful attack, may spend 1 Destiny Point to add damage equal to Cunning to one hit.','Active',10,48,'47'),
+		array('Bounty_Hunter','Survivalist','Toughened','Gain + 2 wound threshold.','Passive',15,49,'45'),
+		array('Bounty_Hunter','Survivalist','Expert_Tracker','Remove 1 black dice per rank of Expert Tracker from checks to find tracks or track targets. Decrease time to track a target by half.','Passive',15,50,'46'),
+		array('Bounty_Hunter','Survivalist','Stalker','Add 1 blue dice per rank of Stalker to all Stealth and Coordination checks.','Passive',15,51,'47,52'),
+		array('Bounty_Hunter','Survivalist','Natural_Outdoorsman','Once per session, may reroll any 1 Resilience or Survival check.','Active',15,52,'51,48'),
+		array('Bounty_Hunter','Survivalist','Toughened','Gain + 2 wound threshold.','Passive',20,53,'49'),
+		array('Bounty_Hunter','Survivalist','Hunter','Add 1 blue dice per rank of Hunter to all checks when interacting with beast or animals (including combat checks). Add + 10 to Critical Injury results against beasts or animals per rank of Hunter.','Passive',20,54,'50'),
+		array('Bounty_Hunter','Survivalist','Expert_Tracker','Remove 1 black dice per rank of Expert Tracker from checks to find tracks or track targets. Decrease time to track a target by half.','Passive',20,55,'51'),
+		array('Bounty_Hunter','Survivalist','Blooded','Add 1 blue dice per rank of Hunter to all checks to resist or recover from poisons, venoms, or toxins. Reduce duration of ongoing poisons by 1 round per rank of Blooded to a minimum of 1.','Passive',20,56,'52'),
+		array('Bounty_Hunter','Survivalist','Enduring','Gain + 1 soak value.','Passive',25,57,'53,58'),
+		array('Bounty_Hunter','Survivalist','Dedication','Gain +1 to a single characteristic. This cannot bring a characteristic above 6.','Passive',25,58,'57,59'),
+		array('Bounty_Hunter','Survivalist','Grit','Gain + 1 strain threshold.','Passive',25,59,'58,55'),
+		array('Bounty_Hunter','Survivalist','Heroic_Fortitude','May spend 1 Destiny Point to ignore effects of Critical Injuries on Brawn or Agility checks until the end of the encounter.','Active',25,60,'56')
 	);
 	foreach($talents as $talent){
 		$wpdb->insert(
