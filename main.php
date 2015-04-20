@@ -98,7 +98,7 @@ add_shortcode( 'sweecs', 'sweecs_page');
 
 //data base insert info
 global $sweecs_db_version;
-$sweecs_db_version = '1.2';
+$sweecs_db_version = '1.5';
 function sweecs_install() {
 	global $wpdb;
 	global $sweecs_db_version;
