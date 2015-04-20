@@ -228,14 +228,6 @@ function sweecs_install() {
 	) $charset_collate;";
 	require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
 	dbDelta( $sql );
-	//Create characters talents table
-	$sql = "CREATE TABLE $character_talents_table_name (
-		id mediumint(9) NOT NULL AUTO_INCREMENT,
-		talent_id text NOT NULL,
-		char_id text NOT NULL,
-		UNIQUE KEY id (id)
-	) $charset_collate;";
-	dbDelta( $sql );
 	//Character inventory and Credits
 	$sql = "CREATE TABLE $character_inventory_table_name (
 		id mediumint(9) NOT NULL AUTO_INCREMENT,
@@ -244,6 +236,14 @@ function sweecs_install() {
 		Inventory text,
 		UNIQUE KEY id (id)
 	)$charset_collate;";
+	dbDelta( $sql );
+	//Create characters talents table
+	$sql = "CREATE TABLE $character_talents_table_name (
+		id mediumint(9) NOT NULL AUTO_INCREMENT,
+		talent_id text NOT NULL,
+		char_id text NOT NULL,
+		UNIQUE KEY id (id)
+	) $charset_collate;";
 	dbDelta( $sql );
 	//Version 1.1.1 added Careers
 	$sql = "CREATE TABLE $careers_table_name (
