@@ -4,7 +4,7 @@ Donate link:
 Tags: Star Wars, RPG, Edge of the Empire
 Requires at least: 3.0.1
 Tested up to: 4.1.1
-Stable tag: 1.1.1
+Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -62,4 +62,6 @@ Corrected multi insert of career and skills tables
 = 1.1.1 =
 Corrected css path issue
 = 1.5 =
-Added basic inventory control. Waiting to release
+Added basic inventory control
+= 1.5.1 =
+Fixed Edit page so that the Specialization would not get blanked out

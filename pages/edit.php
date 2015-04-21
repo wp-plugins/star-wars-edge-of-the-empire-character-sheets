@@ -120,7 +120,7 @@ if(isset($_REQUEST['edit'])){//Edit the submitted Character Sheet
 
 	if($update_char > 0){
 		echo 'Your character has been updated with the following information.';
-		$character= $wpdb->get_row("SELECT * FROM $table_name where userID = $user_id", ARRAY_A);
+		$character= $wpdb->get_row("SELECT * FROM $character_table_name where userID = $user_id", ARRAY_A);
 		?>
 		<div>
 			<p>Player Name: <? echo $character['player']; ?></p>
@@ -219,6 +219,7 @@ else{
 		function setDrops(){
 			var specID= document.getElementById('career').value;
 			document.getElementById(specID).style.display='block';
+			spec(specID);
 		}
 	</script>
 	<link href="<?php echo $incPath; ?>/css/css.css?3.2.6370" rel="stylesheet" type="text/css"/>

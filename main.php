@@ -4,7 +4,7 @@
  * Plugin URI:
  * Description: Create and maintain your SW: Edge of the empire characters. Mobile Friendly.
  * Author: David Ellenburg
- * Version: 1.5
+ * Version: 1.5.1
  * Author URI: http://www.ellenburgweb.com
  * License: GPL2
  **/
@@ -98,7 +98,7 @@ add_shortcode( 'sweecs', 'sweecs_page');
 
 //data base insert info
 global $sweecs_db_version;
-$sweecs_db_version = '1.5';
+$sweecs_db_version = '1.1';
 function sweecs_install() {
 	global $wpdb;
 	global $sweecs_db_version;
