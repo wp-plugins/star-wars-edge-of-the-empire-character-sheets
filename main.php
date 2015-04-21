@@ -80,6 +80,7 @@ function sweecs_page($parms){
 		//set tables for pulling data
 		global $wpdb;
 		$character_table_name = $wpdb->prefix . 'sweecs_characters';
+		$character_inventory_table_name= $wpdb->prefix . 'sweecs_characters_inventory';
 		$careers_table_name = $wpdb->prefix . 'sweecs_careers';
 		$skills_table_name = $wpdb->prefix . 'sweecs_skills';
 		//Call the page being asked for
