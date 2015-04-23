@@ -79,12 +79,12 @@ function sweecs_page($parms){
 		$incPath= "$base_url/wp-content/plugins/$plugName";
 		//set tables for pulling data
 		global $wpdb;
-		$character_table_name=          $wpdb->prefix . 'sweecs_characters';
-		$character_talents_table_name=  $wpdb->prefix . 'sweecs_characters_talents';
-		$character_inventory_table_name= $wpdb->prefix . 'sweecs_characters_inventory';
-		$careers_table_name=            $wpdb->prefix . 'sweecs_careers';
-		$skills_table_name=             $wpdb->prefix . 'sweecs_skills';
-		$talents_table_name=            $wpdb->prefix . 'sweecs_talents';
+		$character_table_name=              $wpdb->prefix . 'sweecs_characters';
+		$character_talents_table_name=      $wpdb->prefix . 'sweecs_characters_talents';
+		$character_inventory_table_name=    $wpdb->prefix . 'sweecs_characters_inventory';
+		$careers_table_name=                $wpdb->prefix . 'sweecs_careers';
+		$skills_table_name=                 $wpdb->prefix . 'sweecs_skills';
+		$talents_table_name=                $wpdb->prefix . 'sweecs_talents';
 		?>
 		<script src="<?php echo $incPath; ?>/js/prototype.forms.js" type="text/javascript"></script>
 		<script src="<?php echo $incPath; ?>/js/jotform.forms.js?3.2.6370" type="text/javascript"></script>
@@ -163,12 +163,12 @@ $sweecs_db_version = '1.7';
 function sweecs_install() {
 	global $wpdb;
 	global $sweecs_db_version;
-	$character_table_name=          $wpdb->prefix . 'sweecs_characters';
-	$character_talents_table_name=  $wpdb->prefix . 'sweecs_characters_talents';
-	$character_inventory_table_name= $wpdb->prefix . 'sweecs_characters_inventory';
-	$careers_table_name=            $wpdb->prefix . 'sweecs_careers';
-	$skills_table_name=             $wpdb->prefix . 'sweecs_skills';
-	$talents_table_name=            $wpdb->prefix . 'sweecs_talents';
+	$character_table_name=              $wpdb->prefix . 'sweecs_characters';
+	$character_talents_table_name=      $wpdb->prefix . 'sweecs_characters_talents';
+	$character_inventory_table_name=    $wpdb->prefix . 'sweecs_characters_inventory';
+	$careers_table_name=                $wpdb->prefix . 'sweecs_careers';
+	$skills_table_name=                 $wpdb->prefix . 'sweecs_skills';
+	$talents_table_name=                $wpdb->prefix . 'sweecs_talents';
 
 	$charset_collate = $wpdb->get_charset_collate();
 	$sql = "CREATE TABLE $character_table_name (
@@ -249,6 +249,7 @@ function sweecs_install() {
 	$sql = "CREATE TABLE $careers_table_name (
 		id mediumint(9) NOT NULL,
 		career text NOT NULL,
+		skills text NOT NULL,
 		UNIQUE KEY id (id)
 	) $charset_collate;";
 	dbDelta( $sql );
@@ -270,15 +271,16 @@ function sweecs_install() {
 			)
 		);
 	}
-	//Version 1.1.2 added skills
+	//Skills
 	$sql = "CREATE TABLE $skills_table_name (
 		id mediumint(9) NOT NULL,
 		skill text NOT NULL,
 		ability text NOT NULL,
+		talent text,
 		UNIQUE KEY id (id)
 	) $charset_collate;";
 	dbDelta( $sql );
-	//insert data
+	//insert Skills data
 	$skills= array(
 		array('Astrogation','intellect',1),
 		array('Athletics','brawn',2),
@@ -400,7 +402,127 @@ function sweecs_install() {
 		array('Bounty_Hunter','Survivalist','Enduring','Gain + 1 soak value.','Passive',25,57,'53,58'),
 		array('Bounty_Hunter','Survivalist','Dedication','Gain +1 to a single characteristic. This cannot bring a characteristic above 6.','Passive',25,58,'57,59'),
 		array('Bounty_Hunter','Survivalist','Grit','Gain + 1 strain threshold.','Passive',25,59,'58,55'),
-		array('Bounty_Hunter','Survivalist','Heroic_Fortitude','May spend 1 Destiny Point to ignore effects of Critical Injuries on Brawn or Agility checks until the end of the encounter.','Active',25,60,'56')
+		array('Bounty_Hunter','Survivalist','Heroic_Fortitude','May spend 1 Destiny Point to ignore effects of Critical Injuries on Brawn or Agility checks until the end of the encounter.','Active',25,60,'56'),
+		array('Colonist','Doctor','Surgeon','desc','Passive',5,61,''),
+		array('Colonist','Doctor','Bacta_Specialist','desc','Passive',5,62,''),
+		array('Colonist','Doctor','Grit','desc','Passive',5,63,''),
+		array('Colonist','Doctor','Resolve','desc','Passive',5,64,''),
+		array('Colonist','Doctor','Stim_Application','desc','Active',10,65,'61,66'),
+		array('Colonist','Doctor','Grit','desc','Passive',10,66,'65,67'),
+		array('Colonist','Doctor','Surgeon','desc','Passive',10,67,'3,66,68'),
+		array('Colonist','Doctor','Resolve','desc','Passive',10,68,'67'),
+		array('Colonist','Doctor','Surgeon','desc','Passive',15,69,'65,70'),
+		array('Colonist','Doctor','Toughened','desc','Passive',15,70,'69,71'),
+		array('Colonist','Doctor','Bacta_Specialist','desc','Passive',15,71,'67,70'),
+		array('Colonist','Doctor','Pressure_Point','desc','Active',15,72,'68'),
+		array('Colonist','Doctor','Improved_Stim_Application','desc','Active',20,73,'69'),
+		array('Colonist','Doctor','Natural_Doctor','desc','Active',20,74,'70'),
+		array('Colonist','Doctor','Grit','desc','Passive',20,75,'71'),
+		array('Colonist','Doctor','Anatomy_Lessons','desc','Active',20,76,'72'),
+		array('Colonist','Doctor','Supreme_Stim_Application','desc','Active',25,77,'73,78'),
+		array('Colonist','Doctor','Master_Doctor','desc','Active',25,78,'74,77,79'),
+		array('Colonist','Doctor','Dedication','desc','Passive',25,79,'75,78'),
+		array('Colonist','Doctor','Dodge','desc','Active',25,80,'76'),
+		array('Colonist','Politico','Kill_with_Kindness','desc','Passive',5,81,''),
+		array('Colonist','Politico','Grit','desc','Passive',5,82,''),
+		array('Colonist','Politico','Plausible_Deniability','desc','Passive',5,83,''),
+		array('Colonist','Politico','Toughened','desc','Passive',5,84,''),
+		array('Colonist','Politico','Inspiring_Rhetoric','desc','Active',10,85,'81,86'),
+		array('Colonist','Politico','Kill_with_Kindness','desc','Passive',10,86,'82,85'),
+		array('Colonist','Politico','Scathing_Tirade','desc','Active',10,87,'83,88'),
+		array('Colonist','Politico','Plausible_Deniability','desc','Passive',10,88,'84,87'),
+		array('Colonist','Politico','Dodge','desc','Active',15,89,'85,90'),
+		array('Colonist','Politico','Improved_Inspiring_Rhetoric','desc','Passive',15,90,'89'),
+		array('Colonist','Politico','Improved_Scathing_Tirade','desc','Passive',15,91,'92'),
+		array('Colonist','Politico','Well_Rounded','desc','Passive',15,92,'88'),
+		array('Colonist','Politico','Grit_','desc','Passive',20,93,'89'),
+		array('Colonist','Politico','Supreme_Inspiring_Rhetoric','desc','Active',20,94,'90'),
+		array('Colonist','Politico','Supreme_Scathing_Tirade','desc','Active',20,95,'91'),
+		array('Colonist','Politico',"Nobody's_Fool",'desc','Passive',20,96,'92'),
+		array('Colonist','Politico','Steely_Nerves','desc','Active',25,97,'93'),
+		array('Colonist','Politico','Dedication','desc','Passive',25,98,'97,99'),
+		array('Colonist','Politico','Natural_Charmer','desc','Active',25,99,'98,100'),
+		array('Colonist','Politico','Intense_Presence','desc','Active',25,100,'96,99'),
+		array('Colonist','Scholar','Respected_Scholar','desc','Passive',5,101,''),
+		array('Colonist','Scholar','Speaks_Binary','desc','Passive',5,102,''),
+		array('Colonist','Scholar','Grit','desc','Passive',5,103,''),
+		array('Colonist','Scholar','Toughened','desc','Passive',5,104,''),
+		array('Colonist','Scholar','Researcher','desc','Passive',10,105,'101,106'),
+		array('Colonist','Scholar','Respected_Scholar','desc','Passive',10,106,'102,105'),
+		array('Colonist','Scholar','Resolve','desc','Passive',10,107,'103,108'),
+		array('Colonist','Scholar','Researcher','desc','Passive',10,108,'104,107'),
+		array('Colonist','Scholar','Codebreaker','desc','Passive',15,109,'105'),
+		array('Colonist','Scholar','Knowledge_Specialization','desc','Passive',15,110,'109'),
+		array('Colonist','Scholar','Natural_Scholar','desc','Active',15,111,'112'),
+		array('Colonist','Scholar','Well_Rounded','desc','Passive',15,112,'108'),
+		array('Colonist','Scholar','Knowledge_Specialization','desc','Passive',20,113,'114'),
+		array('Colonist','Scholar','Codebreaker','desc','Passive',20,114,'110'),
+		array('Colonist','Scholar','Confidence','desc','Passive',20,115,'111'),
+		array('Colonist','Scholar','Resolve','desc','Passive',20,116,'115'),
+		array('Colonist','Scholar','Intense_Focus','desc','Active',25,117,'113,118'),
+		array('Colonist','Scholar','Mental_Fortress','desc','Active',25,118,'117,119'),
+		array('Colonist','Scholar','Dedication','desc','Passive',25,119,'118,120'),
+		array('Colonist','Scholar','Brace','desc','Active',25,120,'116,119'),
+		array('Explorer','Fringer','Galaxy_Mapper','desc','Passive',5,121,''),
+		array('Explorer','Fringer','Street_Smarts','desc','Passive',5,122,''),
+		array('Explorer','Fringer','Rapid_Recovery','desc','Passive',5,123,''),
+		array('Explorer','Fringer','Street_Smarts','desc','Passive',5,124,''),
+		array('Explorer','Fringer','Skilled_Jockey','desc','Passive',10,125,'121'),
+		array('Explorer','Fringer','Galaxy_Mapper','desc','Passive',10,126,'125'),
+		array('Explorer','Fringer','Grit','desc','Passive',10,127,'123,128'),
+		array('Explorer','Fringer','Toughened','desc','Passive',10,128,'124,127'),
+		array('Explorer','Fringer','Master_Starhopper','desc','Active',15,129,'125,130'),
+		array('Explorer','Fringer','Defensive_Driving','desc','Passive',15,130,'126,129'),
+		array('Explorer','Fringer','Rapid_Recovery','desc','Passive',15,131,'127'),
+		array('Explorer','Fringer','Durable','desc','Passive',15,132,'128'),
+		array('Explorer','Fringer','Rapid_Recovery','desc','Passive',20,133,'134,137'),
+		array('Explorer','Fringer','Jump_Up','desc','Passive',20,134,'135'),
+		array('Explorer','Fringer','Grit','desc','Passive',20,135,'137'),
+		array('Explorer','Fringer','Knockdown','desc','Active',20,136,'132'),
+		array('Explorer','Fringer','Dedication','desc','Passive',25,137,'133,138'),
+		array('Explorer','Fringer','Toughened','desc','Passive',25,138,'134,137'),
+		array('Explorer','Fringer','Dodge','desc','Active',25,139,'140'),
+		array('Explorer','Fringer','Dodge','desc','Active',25,140,'136'),
+		array('Explorer','Scout','Rapid_Recovery','desc','Passive',5,141,''),
+		array('Explorer','Scout','Stalker','desc','Passive',5,142,''),
+		array('Explorer','Scout','Grit','desc','Passive',5,143,''),
+		array('Explorer','Scout','Shortcut','desc','Passive',5,144,''),
+		array('Explorer','Scout','Forager','desc','Passive',10,145,'141,146'),
+		array('Explorer','Scout','Quick_Strike','desc','Passive',10,146,'142,145,147'),
+		array('Explorer','Scout',"Let's_Ride",'desc','Passive',10,147,'143,146,148'),
+		array('Explorer','Scout','Disorient','desc','Active',10,148,'144,147'),
+		array('Explorer','Scout','Rapid_Recovery','desc','Passive',15,149,'145'),
+		array('Explorer','Scout','Natural_Hunter','desc','Active',15,150,'146'),
+		array('Explorer','Scout','Familiar_Suns','desc','Active',15,151,'147'),
+		array('Explorer','Scout','Shortcut','desc','Passive',15,152,'148'),
+		array('Explorer','Scout','Grit','desc','Passive',20,153,'149'),
+		array('Explorer','Scout','Heightened_Awareness','desc','Passive',20,154,'150'),
+		array('Explorer','Scout','Toughened','desc','Passive',20,155,'151'),
+		array('Explorer','Scout','Quick_Strike','desc','Passive',20,156,'152'),
+		array('Explorer','Scout','Utility_Belt','desc','Active',25,157,'153,158'),
+		array('Explorer','Scout','Dedication','desc','Passive',25,158,'157,159'),
+		array('Explorer','Scout','Stalker','desc','Passive',25,159,'155,158'),
+		array('Explorer','Scout','Disorient','desc','Active',25,160,'156'),
+		array('Explorer','Trader','Know_Somebody','desc','Passive',5,161,''),
+		array('Explorer','Trader','Convincing_Demeanor','desc','Passive',5,162,''),
+		array('Explorer','Trader','Wheel_and_Deal','desc','Passive',5,163,''),
+		array('Explorer','Trader','Smooth_Talker','desc','Passive',5,164,''),
+		array('Explorer','Trader','Wheel_and_Deal','desc','Passive',10,165,'161'),
+		array('Explorer','Trader','Grit','desc','Passive',10,166,'165'),
+		array('Explorer','Trader','Spare_Clip','desc','Passive',10,167,'166'),
+		array('Explorer','Trader','Toughened','desc','Passive',10,168,'167'),
+		array('Explorer','Trader','Know_Somebody','desc','Passive',15,169,'165'),
+		array('Explorer','Trader',"Nobody's_Fool",'desc','Passive',15,170,'169'),
+		array('Explorer','Trader','Smooth_Talker','desc','Passive',15,171,'170'),
+		array('Explorer','Trader',"Nobody's_Fool",'desc','Passive',15,172,'171'),
+		array('Explorer','Trader','Wheel_and_Deal','desc','Passive',20,173,'169'),
+		array('Explorer','Trader','Steely_Nerves','desc','Active',20,174,'173'),
+		array('Explorer','Trader','Black_Market_Contacts','desc','Passive',20,175,'174'),
+		array('Explorer','Trader','Black_Market_Contacts','desc','Passive',20,176,'175,180'),
+		array('Explorer','Trader','Know_Somebody','desc','Passive',25,177,'173,178'),
+		array('Explorer','Trader','Natural_Negotiator','desc','Active',25,178,'177,179'),
+		array('Explorer','Trader','Dedication','desc','Passive',25,179,'178,180'),
+		array('Explorer','Trader','Master_Merchant','desc','Active',25,180,'176,179')
 	);
 	foreach($talents as $talent){
 		$wpdb->insert(
