@@ -35,6 +35,7 @@ function sweecs_information() {
 		<h1>New Feature!</h1>
 		<ul>
 			<li>Players can now select their talents from their chosen specialization.(Core Edge of the Empire Only)</li>
+			<li>Registered users can add and edit their basic inventory and credits now.</li>
 		</ul>
 
 		<p>
