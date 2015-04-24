@@ -85,6 +85,7 @@ function sweecs_page($parms){
 		$careers_table_name=                $wpdb->prefix . 'sweecs_careers';
 		$skills_table_name=                 $wpdb->prefix . 'sweecs_skills';
 		$talents_table_name=                $wpdb->prefix . 'sweecs_talents';
+		$race_table_name=                   $wpdb->prefix . 'sweecs_races';
 		?>
 		<script src="<?php echo $incPath; ?>/js/prototype.forms.js" type="text/javascript"></script>
 		<script src="<?php echo $incPath; ?>/js/jotform.forms.js?3.2.6370" type="text/javascript"></script>
@@ -158,7 +159,7 @@ add_shortcode( 'sweecs', 'sweecs_page');
 
 //data base insert info
 global $sweecs_db_version;
-$sweecs_db_version = '1.7';
+$sweecs_db_version = '1.5';
 
 function sweecs_install() {
 	global $wpdb;
@@ -169,6 +170,7 @@ function sweecs_install() {
 	$careers_table_name=                $wpdb->prefix . 'sweecs_careers';
 	$skills_table_name=                 $wpdb->prefix . 'sweecs_skills';
 	$talents_table_name=                $wpdb->prefix . 'sweecs_talents';
+	$race_table_name=                   $wpdb->prefix . 'sweecs_races';
 
 	$charset_collate = $wpdb->get_charset_collate();
 	$sql = "CREATE TABLE $character_table_name (
@@ -338,6 +340,7 @@ function sweecs_install() {
 		style text NOT NULL,
 		cost text NOT NULL,
 		requires text,
+		unlocks text,
 		UNIQUE KEY id (id)
 	) $charset_collate;";
 	dbDelta( $sql );
@@ -582,7 +585,127 @@ function sweecs_install() {
 		array('Hired_Gun','Mercenary_Soldier','Deadly_Accuracy','desc','type',25,237,'238'),
 		array('Hired_Gun','Mercenary_Soldier','True_Aim','desc','type',25,238,'234,239'),
 		array('Hired_Gun','Mercenary_Soldier','Dedication','desc','type',25,239,'238,240'),
-		array('Hired_Gun','Mercenary_Soldier','True_Aim','desc','type',25,240,'236,239')
+		array('Hired_Gun','Mercenary_Soldier','True_Aim','desc','type',25,240,'236,239'),
+		array('Smuggler','Pilot','Full_Throttle','desc','type',5,241,''),
+		array('Smuggler','Pilot','Skilled_Jockey','desc','type',5,242,''),
+		array('Smuggler','Pilot','Galaxy_Mapper','desc','type',5,243,''),
+		array('Smuggler','Pilot',"Let's_Ride",'desc','type',5,244,''),
+		array('Smuggler','Pilot','Skilled_Jockey','desc','type',10,245,'241,246'),
+		array('Smuggler','Pilot','Dead_to_Rights','desc','type',10,246,'242,245'),
+		array('Smuggler','Pilot','Galaxy_Mapper','desc','type',10,247,'243,248'),
+		array('Smuggler','Pilot','Rapid_Recovery','desc','type',10,248,'244,247'),
+		array('Smuggler','Pilot','Improved_Full_Throttle','desc','type',15,249,'245'),
+		array('Smuggler','Pilot','Improved_Dead_to_Rights','desc','type',15,250,'256'),
+		array('Smuggler','Pilot','Grit','desc','type',15,251,'247,252'),
+		array('Smuggler','Pilot','Natural_Pilot','desc','type',15,252,'246,251'),
+		array('Smuggler','Pilot','Grit','desc','type',20,253,'249'),
+		array('Smuggler','Pilot','Supreme_Full_Throttle','desc','type',20,254,'253'),
+		array('Smuggler','Pilot','Tricky_Target','desc','type',20,255,'251'),
+		array('Smuggler','Pilot','Defensive_Driving','desc','type',20,256,'252'),
+		array('Smuggler','Pilot','Master_Pilot','desc','type',25,257,'253,258'),
+		array('Smuggler','Pilot','Dedication','desc','type',25,258,'257,259'),
+		array('Smuggler','Pilot','Toughened','desc','type',25,259,'255,258,260'),
+		array('Smuggler','Pilot','Brilliant_Evasion','desc','type',25,260,'256,259'),
+		array('Smuggler','Scoundrel','Black_Market_Contacts','desc','type',5,261,''),
+		array('Smuggler','Scoundrel','Convincing_Demeanor','desc','type',5,262,''),
+		array('Smuggler','Scoundrel','Quick_Draw','desc','type',5,263,''),
+		array('Smuggler','Scoundrel','Rapid_Reaction','desc','type',5,264,''),
+		array('Smuggler','Scoundrel','Convincing_Demeanor','desc','type',10,265,'261'),
+		array('Smuggler','Scoundrel','Black_Market_Contacts','desc','type',10,266,'267,270'),
+		array('Smuggler','Scoundrel','Convincing_Demeanor','desc','type',10,267,'266,271'),
+		array('Smuggler','Scoundrel','Quick_Strike','desc','type',10,268,'264'),
+		array('Smuggler','Scoundrel','Hidden_Storage','desc','type',15,269,'265'),
+		array('Smuggler','Scoundrel','Toughened','desc','type',15,270,'266,271,274'),
+		array('Smuggler','Scoundrel','Black_Market_Contacts','desc','type',15,271,'267,270,275'),
+		array('Smuggler','Scoundrel','Side_Step','desc','type',15,272,'268'),
+		array('Smuggler','Scoundrel','Toughened','desc','type',20,273,'269'),
+		array('Smuggler','Scoundrel','Rapid_Reaction','desc','type',20,274,'270,275,278'),
+		array('Smuggler','Scoundrel','Hidden_Storage','desc','type',20,275,'271,274,279'),
+		array('Smuggler','Scoundrel','Side_Step','desc','type',20,276,'272'),
+		array('Smuggler','Scoundrel','Dedication','desc','type',25,277,'273,278'),
+		array('Smuggler','Scoundrel','Natural_Charmer','desc','type',25,278,'274,277,279'),
+		array('Smuggler','Scoundrel','Soft_Spot','desc','type',25,279,'275,278,280'),
+		array('Smuggler','Scoundrel','Quick_Strike','desc','type',25,280,'276,279'),
+		array('Smuggler','Thief','Street_Smarts','desc','type',5,281,''),
+		array('Smuggler','Thief','Black_Market_Contacts','desc','type',5,282,''),
+		array('Smuggler','Thief','Indistinguishable','desc','type',5,283,''),
+		array('Smuggler','Thief','Bypass_Security','desc','type',5,284,''),
+		array('Smuggler','Thief','Black_Market_Contacts','desc','type',10,285,'281,286'),
+		array('Smuggler','Thief','Dodge','desc','type',10,286,'282,285,287'),
+		array('Smuggler','Thief','Grit','desc','type',10,287,'283,282,288'),
+		array('Smuggler','Thief','Hidden_Storage','desc','type',10,288,'284,287'),
+		array('Smuggler','Thief','Stalker','desc','type',15,289,'285,290'),
+		array('Smuggler','Thief','Grit','desc','type',15,290,'286,289,291'),
+		array('Smuggler','Thief','Rapid_Reaction','desc','type',15,291,'287,290,292'),
+		array('Smuggler','Thief','Shortcut','desc','type',15,292,'288,291'),
+		array('Smuggler','Thief','Bypass_Security','desc','type',20,293,'289'),
+		array('Smuggler','Thief','Natural_Rogue','desc','type',20,294,'290,295,298'),
+		array('Smuggler','Thief','Street_Smarts','desc','type',20,295,'291,294,296,299'),
+		array('Smuggler','Thief','Jump_Up','desc','type',20,296,'292,295'),
+		array('Smuggler','Thief','Master_of_Shadows','desc','type',25,297,'293'),
+		array('Smuggler','Thief','Dodge','desc','type',25,298,'294,299'),
+		array('Smuggler','Thief','Indistinguishable','desc','type',25,299,'295,298'),
+		array('Smuggler','Thief','Dedication','desc','type',25,300,'296'),
+		array('Technician','Mechanic','Gearhead','desc','type',5,301,''),
+		array('Technician','Mechanic','Toughened','desc','type',5,302,''),
+		array('Technician','Mechanic','Fine_Tuning','desc','type',5,303,''),
+		array('Technician','Mechanic','Solid_Repairs','desc','type',5,304,''),
+		array('Technician','Mechanic','Redundant_Systems','desc','type',10,305,'301,306'),
+		array('Technician','Mechanic','Solid_Repairs','desc','type',10,306,'302,305,307'),
+		array('Technician','Mechanic','Gearhead','desc','type',10,307,'303,306,308'),
+		array('Technician','Mechanic','Grit','desc','type',10,308,'304,307'),
+		array('Technician','Mechanic','Solid_Repairs','desc','type',15,309,'305,310'),
+		array('Technician','Mechanic','Enduring','desc','type',15,310,'306,309,311'),
+		array('Technician','Mechanic','Bad_Motivator','desc','type',15,311,'307,310,312'),
+		array('Technician','Mechanic','Toughened','desc','type',15,312,'308,311'),
+		array('Technician','Mechanic','Contraption','desc','type',20,313,'309,314'),
+		array('Technician','Mechanic','Solid_Repairs','desc','type',20,314,'310,313,315'),
+		array('Technician','Mechanic','Fine_Tuning','desc','type',20,315,'312,314'),
+		array('Technician','Mechanic','Hard_Headed','desc','type',20,316,'312'),
+		array('Technician','Mechanic','Natural_Tinker','desc','type',25,317,'313'),
+		array('Technician','Mechanic','Hold_Together','desc','type',25,318,'314'),
+		array('Technician','Mechanic','Dedication','desc','type',25,319,'315'),
+		array('Technician','Mechanic','Improved_Hard_Headed','desc','type',25,320,'316'),
+		array('Technician','Outlaw_Tech','Tinkerer','desc','type',5,321,''),
+		array('Technician','Outlaw_Tech','Utinni!','desc','type',5,322,''),
+		array('Technician','Outlaw_Tech','Speaks_Binary','desc','type',5,323,''),
+		array('Technician','Outlaw_Tech','Tinkerer','desc','type',5,324,''),
+		array('Technician','Outlaw_Tech','Solid_Repairs','desc','type',10,325,'321,326'),
+		array('Technician','Outlaw_Tech','Grit','desc','type',10,326,'322,325,327'),
+		array('Technician','Outlaw_Tech','Utinni!','desc','type',10,327,'323,326,328'),
+		array('Technician','Outlaw_Tech','Toughened','desc','type',10,328,'324,237'),
+		array('Technician','Outlaw_Tech','Utility_Belt','desc','type',15,329,'325,330'),
+		array('Technician','Outlaw_Tech','Side_Step','desc','type',15,330,'326,329,331'),
+		array('Technician','Outlaw_Tech','Brace','desc','type',15,331,'327,330,332'),
+		array('Technician','Outlaw_Tech','Defensive_Stance','desc','type',15,332,'328,331'),
+		array('Technician','Outlaw_Tech','Jury_Rigged','desc','type',20,333,'329,334'),
+		array('Technician','Outlaw_Tech','Speaks_Binary','desc','type',20,334,'330,333,335'),
+		array('Technician','Outlaw_Tech','Inventor','desc','type',20,335,'331,334'),
+		array('Technician','Outlaw_Tech','Jury_Rigged','desc','type',20,336,'332,340'),
+		array('Technician','Outlaw_Tech','Inventor','desc','type',25,337,'333'),
+		array('Technician','Outlaw_Tech','Dedication','desc','type',25,338,'337'),
+		array('Technician','Outlaw_Tech','Known_Schematic','desc','type',25,339,'335,340'),
+		array('Technician','Outlaw_Tech','Brace','desc','type',25,340,'336,339'),
+		array('Technician','Slicer','Codebreaker','desc','type',5,341,''),
+		array('Technician','Slicer','Grit','desc','type',5,342,''),
+		array('Technician','Slicer','Technical_Aptitude','desc','type',5,343,''),
+		array('Technician','Slicer','Bypass_Security','desc','type',5,344,''),
+		array('Technician','Slicer','Defensive_Slicing','desc','type',10,345,'341'),
+		array('Technician','Slicer','Technical_Aptitude','desc','type',10,346,'346,350'),
+		array('Technician','Slicer','Grit','desc','type',10,347,'346,348,351'),
+		array('Technician','Slicer','Bypass_Security','desc','type',10,348,'347,352'),
+		array('Technician','Slicer','Natural_Programmer','desc','type',15,349,'345'),
+		array('Technician','Slicer','Bypass_Security','desc','type',15,350,'356,351,354'),
+		array('Technician','Slicer','Defensive_Slicing','desc','type',15,351,'347,350,352'),
+		array('Technician','Slicer','Grit','desc','type',15,352,'348,351,356'),
+		array('Technician','Slicer','Defensive_Slicing','desc','type',20,353,'349,354'),
+		array('Technician','Slicer','Improved_Defensive_Slicing','desc','type',20,354,'350,353,355,358'),
+		array('Technician','Slicer','Codebreaker','desc','type',20,355,'351,354,356,359'),
+		array('Technician','Slicer','Resolve','desc','type',20,356,'352,356,360'),
+		array('Technician','Slicer','Skilled_Slicer','desc','type',25,357,'353,358'),
+		array('Technician','Slicer','Master_Slicer','desc','type',25,358,'354,357,359'),
+		array('Technician','Slicer','Mental_Fortress','desc','type',25,359,'355,358,360'),
+		array('Technician','Slicer','Dedication','desc','type',25,360,'356,359')
 	);
 	foreach($talents as $talent){
 		$wpdb->insert(
@@ -596,6 +719,43 @@ function sweecs_install() {
 				'cost'              => $talent[5],
 				'talent_id'         => $talent[6],
 				'requires'          => $talent[7]
+			)
+		);
+	}
+	//Races
+	$sql = "CREATE TABLE $race_table_name (
+		race_id mediumint(9) NOT NULL AUTO_INCREMENT,
+		race text NOT NULL,
+		UNIQUE KEY race_id (race_id)
+	) $charset_collate;";
+	dbDelta( $sql );
+	//insert data
+	$races= array(
+		array('Aqualish'),
+		array('Bothan'),
+		array('Chiss'),
+		array('Drall'),
+		array('Droid'),
+		array('Duros'),
+		array('Gand'),
+		array('Human'),
+		array('Corellian'),
+		array('Klatooinian'),
+		array('Rodian'),
+		array('Selonian'),
+		array('Toydarian'),
+		array('Trandoshan'),
+		array("Twi'lek"),
+		array('Weequay'),
+		array('Wookiee'),
+		array('Zabrak'),
+		array('Togruta')
+	);
+	foreach($races as $race){
+		$wpdb->insert(
+			$race_table_name,
+			array(
+				'race' => $race[0]
 			)
 		);
 	}
