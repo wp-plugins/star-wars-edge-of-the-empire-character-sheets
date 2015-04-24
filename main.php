@@ -4,7 +4,7 @@
  * Plugin URI:
  * Description: Create and maintain your SW: Edge of the empire characters. Mobile Friendly.
  * Author: David Ellenburg
- * Version: 1.1.1
+ * Version: 2.0
  * Author URI: http://www.ellenburgweb.com
  * License: GPL2
  **/
@@ -24,13 +24,17 @@ function sweecs_information() {
 	<h1>Welcome to Star Wars Edge of the Empire Character Sheets</h1>
 	<div>
 		<p>
-			You are currently running version 1.0. In this version you will have the following:
+			You are currently running version 2.0. In this version you will have the following:
 		</p>
 		<ul>
 			<li>Registered users can create one character.</li>
 			<li>Registered users can view their character.</li>
 			<li>Registered users can edit their character.</li>
 			<li>Registered users can see what dice they are allowed to roll for each skill.</li>
+		</ul>
+		<h1>New Feature!</h1>
+		<ul>
+			<li>Players can now select their talents from their chosen specialization.(Core Edge of the Empire Only)</li>
 		</ul>
 
 		<p>
@@ -41,17 +45,22 @@ function sweecs_information() {
 			Below are the pages that you will want to create and then add the shortcode. Only the shortcode is required, you can name the pages how ever you like.
 		</p>
 
+		<h1>Heads up! New Pages!</h1>
+
 		<ul>
 			<li>Page: Create new Character, Shortcode: [sweecs page='create']</li>
 			<li>Page: Edit Character, Shortcode: [sweecs page='edit']</li>
 			<li>Page: View Character, Shortcode: [sweecs page='view']</li>
 			<li>Page: Your Dice, Shortcode: [sweecs page='dice']</li>
+			<li>Page: Choose/Edit Talents, Shortcode: [sweecs page='cTalents']</li>
+			<li>Page: Your Talents, Shortcode: [sweecs page='viewTalents']</li>
+			<li>Page: Inventory, Shortcode: [sweecs page='inv']</li>
 		</ul>
 
 		<h2>Future Plans</h2>
 		<ul>
 			<li>Multiple Characters per user</li>
-			<li>Talents</li>
+			<li>Talents-On going with expansions</li>
 			<li>Player Groups so a GM can access his players Characters</li>
 			<li>Add expansions</li>
 			<li>More as I find things to add</li>
@@ -108,6 +117,7 @@ function sweecs_page($parms){
 			function setDrops(){
 				var specID= document.getElementById('career').value;
 				document.getElementById(specID).style.display='block';
+				spec(specID);
 			}
 			function show(skill){
 				//document.getElementById(skill).style.display= 'block';
@@ -159,7 +169,7 @@ add_shortcode( 'sweecs', 'sweecs_page');
 
 //data base insert info
 global $sweecs_db_version;
-$sweecs_db_version = '1.5';
+$sweecs_db_version = '2.0';
 
 function sweecs_install() {
 	global $wpdb;
