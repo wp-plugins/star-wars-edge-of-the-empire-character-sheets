@@ -3,7 +3,7 @@ Contributors: Davell87
 Donate link:
 Tags: Star Wars, RPG, Edge of the Empire
 Requires at least: 3.0.1
-Tested up to: 4.1.1
+Tested up to: 4.2
 Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -14,14 +14,14 @@ Create and maintain your SW: Edge of the empire characters. Mobile Friendly.
 
 Welcome to Star Wars Edge of the Empire Character Sheets
 
-Version 1.5.1
- In this version you will have the following:
+Version 2.0
 
 1. Registered users can create one character.
 1. Registered users can view their character.
 1. Registered users can edit their character.
 1. Registered users can see what dice they are allowed to roll for each skill.
-1. Registered users can add and edit their basic inventory and credits now..
+1. Registered users can add and edit their basic inventory and credits now.
+1. Registered users can now select their talents from their chosen specialization.(Core Edge of the Empire Only)
 
 This plugin requires the user to be logged in to see the any of the pages it provides. No need for you to create hidden pages.
 
@@ -32,7 +32,9 @@ Below are the pages that you will want to create and then add the shortcode. Onl
 2. Page: Edit Character, Shortcode: [sweecs page='edit']
 3. Page: View Character, Shortcode: [sweecs page='view']
 4. Page: Your Dice, Shortcode: [sweecs page='dice']
-5. Page: Inventory, Shortcode: [sweecs page='inv']
+5. Page: Choose/Edit Talents, Shortcode: [sweecs page='cTalents']
+6. Page: Your Talents, Shortcode: [sweecs page='viewTalents']
+7. Page: Inventory, Shortcode: [sweecs page='inv']
 
 Future Plans
 
@@ -63,5 +65,5 @@ Corrected multi insert of career and skills tables
 Corrected css path issue
 = 1.5 =
 Added basic inventory control
-= 1.5.1 =
-Fixed Edit page so that the Specialization would not get blanked out
+= 2.0 =
+All talents from Careers(Core Edge of the Empire Book) are now available.

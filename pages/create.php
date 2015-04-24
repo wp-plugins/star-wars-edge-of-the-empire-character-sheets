@@ -194,49 +194,9 @@ if(isset($_REQUEST['create'])){//Create the submitted Character Sheet
 
 }
 elseif(!isset($_REQUEST['create']) && !isset($character['character_name'])){//Display Form
+	@$character= $wpdb->get_row("SELECT * FROM $character_table_name where userID = $user_id", ARRAY_A);
+	@$races= $wpdb->get_results("SELECT * FROM $race_table_name", ARRAY_A);
 	?>
-	<script src="<?php echo $incPath; ?>/js/prototype.forms.js" type="text/javascript"></script>
-	<script src="<?php echo $incPath; ?>/js/jotform.forms.js?3.2.6370" type="text/javascript"></script>
-	<script type="text/javascript">
-		JotForm.init();
-		function spec(career){
-			var careers= ['Bounty_Hunter', 'Colonist', 'Explorer', 'Hired_Gun', 'Smuggler', 'Technician'];
-			for(var i = 0; i < careers.length; i++){
-				var item= careers[i];
-				document.getElementById(item).style.display='none';
-				var item2= item + '_Spec';
-				var field= document.getElementById(item2);
-				field.setAttribute("name","nope");
-			}
-			document.getElementById(career).style.display='block';
-			var career2= career + '_Spec';
-			var field= document.getElementById(career2);
-			field.setAttribute("name","specialization");
-		}
-
-	</script>
-	<link href="<?php echo $incPath; ?>/css/css.css?3.2.6370" rel="stylesheet" type="text/css" />
-	<link type="text/css" rel="stylesheet" href="<?php echo $incPath; ?>/css/nova.css?3.2.6370" />
-	<link type="text/css" media="print" rel="stylesheet" href="<?php echo $incPath; ?>/css/printForm.css?3.2.6370" />
-	<style type="text/css">
-		.form-label-left{
-			width:150px !important;
-		}
-		.form-line{
-			padding-top:12px;
-			padding-bottom:12px;
-		}
-		.form-label-right{
-			width:150px !important;
-		}
-		.form-all{
-			width:650px;
-			color:#555 !important;
-			font-family:"Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Verdana, sans-serif;
-			font-size:14px;
-		}
-	</style>
-
 	<form class="jotform-form" action="" method="post" name="form_50895250335153" id="50895250335153" accept-charset="utf-8">
 		<input type="hidden" name="create" value="" />
 		<div> <!-- Top Div -->
@@ -286,23 +246,11 @@ elseif(!isset($_REQUEST['create']) && !isset($character['character_name'])){//Di
 					<div id="cid_2" class="form-input jf-required">
 						<select class="form-dropdown validate[required]" style="width:150px" id="input_2" name="race">
 							<option value="">  </option>
-							<option value="Aqualish"> Aqualish </option>
-							<option value="Bothan"> Bothan </option>
-							<option value="Chiss"> Chiss </option>
-							<option value="Drall"> Drall </option>
-							<option value="Droid"> Droid </option>
-							<option value="Duros"> Duros </option>
-							<option value="Gand"> Gand </option>
-							<option value="Human"> Human </option>
-							<option value="Corellian"> Corellian </option>
-							<option value="Klatooinian"> Klatooinian </option>
-							<option value="Rodian"> Rodian </option>
-							<option value="Selonian"> Selonian </option>
-							<option value="Toydarian"> Toydarian </option>
-							<option value="Trandoshan"> Trandoshan </option>
-							<option value="Twilek"> Twi'lek </option>
-							<option value="Weequay"> Weequay </option>
-							<option value="Wookiee"> Wookiee </option>
+							<?php
+							foreach($races as $race){
+								echo "<option value='$race[race]'>$race[race]</option>";
+							}
+							?>
 						</select>
 					</div>
 				</li>

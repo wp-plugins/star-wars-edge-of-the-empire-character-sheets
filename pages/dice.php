@@ -4,27 +4,14 @@
  * User: dellenburg
  * Date: 3/31/2015
  * Time: 13:47
- * Name: Create Character
+ * Name: Dice
  * Desc: This script will allow the player to see what dice to roll for their skills.
  */
-//$character= $wpdb->get_row("SELECT * FROM $character_table_name where userID = $user_id", ARRAY_A);
-//$value= $wpdb->get_row("SELECT * FROM $skills_table_name where skill = $skill", ARRAY_A);
+
 $skills= $wpdb->get_col("SELECT skill FROM $skills_table_name WHERE 1");
 $character_atts= $wpdb->get_row("SELECT * FROM $character_table_name where userID = $user_id", ARRAY_A);
 
 ?>
-<script>
-	function show(skill){
-		//document.getElementById(skill).style.display= 'block';
-
-		var skills= ['Astrogation','Athletics','Brawl','Charm','Coercion','Computers','Cool','Coordination','Deception','Discipline','Gunnery','Knowledge','Knowledge_Core_Worlds','Knowledge_Education','Knowledge_Lore','Knowledge_Outer_Rim','Knowledge_Underworld','Knowledge_Xenology','Knowledge_Warfare','Leadership','Mechanics','Medicine','Melee','Negotiation','Perception','Piloting_Planetary','Piloting_Space','Ranged_Heavy','Ranged_Light','Resilience','Skulduggery','Stealth','Streetwise','Survival','Vigilance'];
-		for(var i = 0; i < skills.length; i++){
-			var item= skills[i];
-			document.getElementById(item).style.display='none';
-		}
-		document.getElementById(skill).style.display='block';
-	}
-</script>
 <p>Please choose your skill</p>
 <div style="float:left;width:40%;margin:0 5%">
 	<select name="skill" onchange="show(this.value);">

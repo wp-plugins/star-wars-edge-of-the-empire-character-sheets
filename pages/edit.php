@@ -4,7 +4,7 @@
  * User: dellenburg
  * Date: 3/31/2015
  * Time: 13:47
- * Name: Create Character
+ * Name: Edit Character
  * Desc: This script will allow the player to modify their character.
  */
 
@@ -63,20 +63,20 @@ if(isset($_REQUEST['edit'])){//Edit the submitted Character Sheet
 	$update_char= $wpdb->update(
 		$character_table_name,
 		array(
-			'character_name'            => $character_name,
-			'race'                      => $race,
-			'career'                    => $career,
-			'soak'                      => $soak_value,
-			'strain'                    => $strain,
-			'brawn'                     => $brawn,
-			'intellect'                 => $intellect,
-			'willpower'                 => $willpower,
-			'specialization'            => $specialization,
-			'wounds'                    => $wounds,
-			'defence'                   => $defence,
-			'agility'                   => $agility,
-			'cunning'                   => $cunning,
-			'presence'                  => $presence,
+			'character_name'            =>  $character_name,
+			'race'                      =>  $race,
+			'career'                    =>  $career,
+			'soak'                      =>  $soak_value,
+			'strain'                    =>  $strain,
+			'brawn'                     =>  $brawn,
+			'intellect'                 =>  $intellect,
+			'willpower'                 =>  $willpower,
+			'specialization'            =>  $specialization,
+			'wounds'                    =>  $wounds,
+			'defence'                   =>  $defence,
+			'agility'                   =>  $agility,
+			'cunning'                   =>  $cunning,
+			'presence'                  =>  $presence,
 			'Astrogation'               =>	$Astrogation,
 			'Athletics'                 =>  $Athletics,
 			'Brawl'                     =>  $Brawl,
@@ -193,59 +193,12 @@ else{
 
 	$character= $wpdb->get_row("SELECT * FROM $character_table_name where userID = $user_id", ARRAY_A);
 
+	@$races= $wpdb->get_results("SELECT * FROM $race_table_name", ARRAY_A);
+
 	//build selected variable for drop downs
-	$$character['race']=            'selected';
 	$$character['career']=          'selected';
 	$$character['specialization']=  'selected';
 	?>
-	<script src="<?php echo $incPath; ?>/js/prototype.forms.js" type="text/javascript"></script>
-	<script src="<?php echo $incPath; ?>/js/jotform.forms.js?3.2.6370" type="text/javascript"></script>
-	<script type="text/javascript">
-		JotForm.init();
-		function spec(career){
-			var careers= ['Bounty_Hunter', 'Colonist', 'Explorer', 'Hired_Gun', 'Smuggler', 'Technician'];
-			for(var i = 0; i < careers.length; i++){
-				var item= careers[i];
-				document.getElementById(item).style.display='none';
-				var specID= item + '_Spec';
-				var field= document.getElementById(specID);
-				field.setAttribute("name","nope");
-			}
-			document.getElementById(career).style.display='block';
-			var career2= career + '_Spec';
-			var field= document.getElementById(career2);
-			field.setAttribute("name","specialization");
-		}
-		function setDrops(){
-			var specID= document.getElementById('career').value;
-			document.getElementById(specID).style.display='block';
-			spec(specID);
-		}
-	</script>
-	<link href="<?php echo $incPath; ?>/css/css.css?3.2.6370" rel="stylesheet" type="text/css"/>
-	<link type="text/css" rel="stylesheet" href="<?php echo $incPath; ?>/css/nova.css?3.2.6370"/>
-	<link type="text/css" media="print" rel="stylesheet" href="<?php echo $incPath; ?>/css/printForm.css?3.2.6370"/>
-	<style type="text/css">
-		.form-label-left {
-			width: 150px !important;
-		}
-
-		.form-line {
-			padding-top: 12px;
-			padding-bottom: 12px;
-		}
-
-		.form-label-right {
-			width: 150px !important;
-		}
-
-		.form-all {
-			width: 650px;
-			color: #555 !important;
-			font-family: "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Verdana, sans-serif;
-			font-size: 14px;
-		}
-	</style>
 	<div>
 		<p>Player Name: <? echo $character['player']; ?></p>
 	</div>
@@ -291,23 +244,16 @@ else{
 					<div id="cid_2" class="form-input jf-required">
 						<select class="form-dropdown validate[required]" style="width:150px" id="input_2" name="race">
 							<option value=""></option>
-							<option value="Aqualish" <? echo $Aqualish;?> > Aqualish</option>
-							<option value="Bothan" <? echo $Bothan;?> > Bothan</option>
-							<option value="Chiss" <? echo $Chiss;?> > Chiss</option>
-							<option value="Drall" <? echo $Drall;?> > Drall</option>
-							<option value="Droid" <? echo $Droid;?> > Droid</option>
-							<option value="Duros" <? echo $Duros;?> > Duros</option>
-							<option value="Gand" <? echo $Gand;?> > Gand</option>
-							<option value="Human" <? echo $Human;?> > Human</option>
-							<option value="Corellian" <? echo $Corellian;?> > Corellian</option>
-							<option value="Klatooinian" <? echo $Klatooinian;?> > Klatooinian</option>
-							<option value="Rodian" <? echo $Rodian;?> > Rodian</option>
-							<option value="Selonian" <? echo $Selonian;?> > Selonian</option>
-							<option value="Toydarian" <? echo $Toydarian; ?> > Toydarian</option>
-							<option value="Trandoshan" <? echo $Trandoshan;?> > Trandoshan</option>
-							<option value="Twilek" <? echo $Twilek;?> > Twi'lek</option>
-							<option value="Weequay" <? echo $Weequay;?> > Weequay</option>
-							<option value="Wookiee" <? echo $Wookiee;?> > Wookiee</option>
+							<?php
+							foreach($races as $race){
+								if($character['race'] == $race['race']){
+									$selected= 'selected';
+								}else{
+									$selected= '';
+								}
+								echo "<option value='$race[race]' $selected>$race[race]</option>";
+							}
+							?>
 						</select>
 					</div>
 				</li>
