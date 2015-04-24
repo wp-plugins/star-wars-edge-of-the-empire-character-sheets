@@ -352,7 +352,7 @@ function sweecs_install() {
 		cost text NOT NULL,
 		requires text,
 		unlocks text,
-		UNIQUE KEY id (id)
+		UNIQUE KEY talent_id (talent_id)
 	) $charset_collate;";
 	dbDelta( $sql );
 	//Insert Data
