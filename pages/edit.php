@@ -120,7 +120,7 @@ if(isset($_REQUEST['edit'])){//Edit the submitted Character Sheet
 
 	if($update_char > 0){
 		echo 'Your character has been updated with the following information.';
-		$character= $wpdb->get_row("SELECT * FROM $table_name where userID = $user_id", ARRAY_A);
+		$character= $wpdb->get_row("SELECT * FROM $character_table_name where userID = $user_id", ARRAY_A);
 		?>
 		<div>
 			<p>Player Name: <? echo $character['player']; ?></p>
@@ -193,8 +193,9 @@ else{
 
 	$character= $wpdb->get_row("SELECT * FROM $character_table_name where userID = $user_id", ARRAY_A);
 
+	@$races= $wpdb->get_results("SELECT * FROM $race_table_name", ARRAY_A);
+
 	//build selected variable for drop downs
-	$$character['race']=            'selected';
 	$$character['career']=          'selected';
 	$$character['specialization']=  'selected';
 	?>
@@ -243,23 +244,16 @@ else{
 					<div id="cid_2" class="form-input jf-required">
 						<select class="form-dropdown validate[required]" style="width:150px" id="input_2" name="race">
 							<option value=""></option>
-							<option value="Aqualish" <? echo $Aqualish;?> > Aqualish</option>
-							<option value="Bothan" <? echo $Bothan;?> > Bothan</option>
-							<option value="Chiss" <? echo $Chiss;?> > Chiss</option>
-							<option value="Drall" <? echo $Drall;?> > Drall</option>
-							<option value="Droid" <? echo $Droid;?> > Droid</option>
-							<option value="Duros" <? echo $Duros;?> > Duros</option>
-							<option value="Gand" <? echo $Gand;?> > Gand</option>
-							<option value="Human" <? echo $Human;?> > Human</option>
-							<option value="Corellian" <? echo $Corellian;?> > Corellian</option>
-							<option value="Klatooinian" <? echo $Klatooinian;?> > Klatooinian</option>
-							<option value="Rodian" <? echo $Rodian;?> > Rodian</option>
-							<option value="Selonian" <? echo $Selonian;?> > Selonian</option>
-							<option value="Toydarian" <? echo $Toydarian; ?> > Toydarian</option>
-							<option value="Trandoshan" <? echo $Trandoshan;?> > Trandoshan</option>
-							<option value="Twilek" <? echo $Twilek;?> > Twi'lek</option>
-							<option value="Weequay" <? echo $Weequay;?> > Weequay</option>
-							<option value="Wookiee" <? echo $Wookiee;?> > Wookiee</option>
+							<?php
+							foreach($races as $race){
+								if($character['race'] == $race['race']){
+									$selected= 'selected';
+								}else{
+									$selected= '';
+								}
+								echo "<option value='$race[race]' $selected>$race[race]</option>";
+							}
+							?>
 						</select>
 					</div>
 				</li>

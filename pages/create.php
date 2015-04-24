@@ -194,6 +194,8 @@ if(isset($_REQUEST['create'])){//Create the submitted Character Sheet
 
 }
 elseif(!isset($_REQUEST['create']) && !isset($character['character_name'])){//Display Form
+	@$character= $wpdb->get_row("SELECT * FROM $character_table_name where userID = $user_id", ARRAY_A);
+	@$races= $wpdb->get_results("SELECT * FROM $race_table_name", ARRAY_A);
 	?>
 	<form class="jotform-form" action="" method="post" name="form_50895250335153" id="50895250335153" accept-charset="utf-8">
 		<input type="hidden" name="create" value="" />
@@ -244,23 +246,11 @@ elseif(!isset($_REQUEST['create']) && !isset($character['character_name'])){//Di
 					<div id="cid_2" class="form-input jf-required">
 						<select class="form-dropdown validate[required]" style="width:150px" id="input_2" name="race">
 							<option value="">  </option>
-							<option value="Aqualish"> Aqualish </option>
-							<option value="Bothan"> Bothan </option>
-							<option value="Chiss"> Chiss </option>
-							<option value="Drall"> Drall </option>
-							<option value="Droid"> Droid </option>
-							<option value="Duros"> Duros </option>
-							<option value="Gand"> Gand </option>
-							<option value="Human"> Human </option>
-							<option value="Corellian"> Corellian </option>
-							<option value="Klatooinian"> Klatooinian </option>
-							<option value="Rodian"> Rodian </option>
-							<option value="Selonian"> Selonian </option>
-							<option value="Toydarian"> Toydarian </option>
-							<option value="Trandoshan"> Trandoshan </option>
-							<option value="Twilek"> Twi'lek </option>
-							<option value="Weequay"> Weequay </option>
-							<option value="Wookiee"> Wookiee </option>
+							<?php
+							foreach($races as $race){
+								echo "<option value='$race[race]'>$race[race]</option>";
+							}
+							?>
 						</select>
 					</div>
 				</li>
