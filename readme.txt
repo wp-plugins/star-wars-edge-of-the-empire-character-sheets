@@ -3,7 +3,7 @@ Contributors: Davell87
 Donate link:
 Tags: Star Wars, RPG, Edge of the Empire
 Requires at least: 3.0.1
-Tested up to: 4.2
+Tested up to: 4.2.1
 Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -14,7 +14,7 @@ Create and maintain your SW: Edge of the empire characters. Mobile Friendly.
 
 Welcome to Star Wars Edge of the Empire Character Sheets
 
-Version 2.0
+Version 2.0.1
 
 1. Registered users can create one character.
 1. Registered users can view their character.
@@ -67,3 +67,5 @@ Corrected css path issue
 Added basic inventory control
 = 2.0 =
 All talents from Careers(Core Edge of the Empire Book) are now available.
+= 2.0.1 =
+Hot Fix for dice page. Disclaimer added.
