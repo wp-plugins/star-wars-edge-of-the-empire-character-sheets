@@ -4,7 +4,7 @@
  * Plugin URI:
  * Description: Create and maintain your SW: Edge of the empire characters. Mobile Friendly.
  * Author: David Ellenburg
- * Version: 2.0
+ * Version: 2.0.1
  * Author URI: http://www.ellenburgweb.com
  * License: GPL2
  **/
@@ -70,6 +70,9 @@ function sweecs_information() {
 		<p>
 			If you like what I am doing with this plugin and have ideas to add to the future list, send me a message at <a href="mailto:ellenburgweb@gmail.com">ellenburgweb@gmail.com</a>
 		</p>
+		<p>
+			Disclaimer: This is an unofficial plugin for the game Star Wars Edge of the Empire. No official affiliation to Lucasfilm Ltd. or Fantasy Flight Publishing, Inc.
+		</p>
 
 	</div>
 	<?php
@@ -120,9 +123,7 @@ function sweecs_page($parms){
 				document.getElementById(specID).style.display='block';
 				spec(specID);
 			}
-			function show(skill){
-				//document.getElementById(skill).style.display= 'block';
-
+			function reveal_div(skill){
 				var skills= ['Astrogation','Athletics','Brawl','Charm','Coercion','Computers','Cool','Coordination','Deception','Discipline','Gunnery','Knowledge','Knowledge_Core_Worlds','Knowledge_Education','Knowledge_Lore','Knowledge_Outer_Rim','Knowledge_Underworld','Knowledge_Xenology','Knowledge_Warfare','Leadership','Mechanics','Medicine','Melee','Negotiation','Perception','Piloting_Planetary','Piloting_Space','Ranged_Heavy','Ranged_Light','Resilience','Skulduggery','Stealth','Streetwise','Survival','Vigilance'];
 				for(var i = 0; i < skills.length; i++){
 					var item= skills[i];

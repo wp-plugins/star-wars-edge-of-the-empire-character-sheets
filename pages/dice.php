@@ -14,7 +14,7 @@ $character_atts= $wpdb->get_row("SELECT * FROM $character_table_name where userI
 ?>
 <p>Please choose your skill</p>
 <div style="float:left;width:40%;margin:0 5%">
-	<select name="skill" onchange="show(this.value);">
+	<select name="skill" onchange="reveal_div(this.value);">
 		<option>Please Choose One</option>
 		<?php
 

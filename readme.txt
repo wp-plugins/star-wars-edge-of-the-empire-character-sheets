@@ -47,6 +47,7 @@ Future Plans
 
 If you like what I am doing with this plugin and have ideas to add to the future list, send me a message at <a href="mailto:ellenburgweb@gmail.com">ellenburgweb@gmail.com</a>
 
+Disclaimer: This is an unofficial plugin for the game Star Wars Edge of the Empire. No official affiliation to Lucasfilm Ltd. or Fantasy Flight Publishing, Inc.
 
 == Installation ==
 
